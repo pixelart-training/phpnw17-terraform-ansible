@@ -1,0 +1,23 @@
+---
+- hosts: my_instance
+  remote_user: ubuntu
+  become: true
+  gather_facts: false
+
+  vars_prompt:
+    - name: my_instance_ip
+      prompt: "Enter IP address of your AWS instance"
+
+  tasks:
+    - name: Set IP as fact
+      set_fact:
+        jenkins_ip: "{{ my_instance_ip }}"
+
+- hosts: my_instance
+  remote_user: ubuntu
+  become: true
+  become_user: www-data
+  gather_facts: true
+
+  roles:
+    - carlosbuenosvinos.ansistrano-deploy

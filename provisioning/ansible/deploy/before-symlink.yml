@@ -1,0 +1,5 @@
+---
+- name: Run composer install
+  command: composer install
+  args:
+    chdir: "{{ ansistrano_release_path.stdout }}"

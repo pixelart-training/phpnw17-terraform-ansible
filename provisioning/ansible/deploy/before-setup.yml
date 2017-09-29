@@ -1,0 +1,8 @@
+---
+- name: Change ownership of /var/www
+  become_user: root
+  file:
+    state: directory
+    path: /var/www
+    owner: www-data
+    group: www-data

@@ -1,0 +1,6 @@
+---
+- name: restart php-fpm
+  become_user: root
+  service:
+    name: "{{ php_fpm_daemon }}"
+    state: restarted

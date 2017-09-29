@@ -1,0 +1,22 @@
+---
+ansistrano_deploy_from: "{{ playbook_dir }}/../../" # Where my local project is (relative or absolute path)
+ansistrano_deploy_to: "/var/www/bolt" # Base path to deploy to.
+ansistrano_keep_releases: 5
+
+# Arrays of directories and files to be shared.
+# The following arrays of directories and files will be symlinked to the current release directory after the 'update-code' step and its callbacks
+# Notes:
+# * Paths are relative to the /shared directory (no starting /)
+# * If your items are in a subdirectory, write the entire path to each shared directory
+ansistrano_shared_paths:
+  - app/database
+  - public/thumbs
+  - public/files
+ansistrano_shared_files: []
+
+ansistrano_deploy_via: "git"
+ansistrano_git_repo: https://github.com/pixelart-training/phpnw17-terraform-ansible.git # Location of the git repository
+
+ansistrano_before_setup_tasks_file: "{{ playbook_dir }}/deploy/before-setup.yml"
+ansistrano_before_symlink_tasks_file: "{{ playbook_dir }}/deploy/before-symlink.yml"
+ansistrano_after_symlink_tasks_file: "{{ playbook_dir }}/deploy/after-symlink.yml"

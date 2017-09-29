@@ -4,3 +4,5 @@
 - src: geerlingguy.nginx
 - src: geerlingguy.php
 - src: geerlingguy.composer
+- src: carlosbuenosvinos.ansistrano-deploy
+- src: carlosbuenosvinos.ansistrano-rollback

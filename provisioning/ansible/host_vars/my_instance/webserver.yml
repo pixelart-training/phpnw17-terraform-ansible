@@ -1,7 +1,7 @@
 nginx_vhosts:
   - listen: 80 default_server
     server_name: bolt-foo.phpnw17.karis.ch
-    root: /var/www/bolt/current/public
+    root: "{{ ansistrano_deploy_to }}/current/public"
     index: index.php
     extra_parameters: |
       # Default prefix match fallback, as all URIs begin with /

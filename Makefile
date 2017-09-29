@@ -1,6 +1,6 @@
-.PHONY: default tffmt tfplan tfapply tfrefresh tftaint tfoutput tfdestroy ssh galaxy setup
+.PHONY: default tffmt tfplan tfapply tfrefresh tftaint tfoutput tfdestroy ssh galaxy setup deploy
 
-default: tfapply setup
+default: tfapply setup deploy
 
 tffmt:
 	cd provisioning/terraform && terraform fmt
@@ -37,3 +37,11 @@ setup:
 		-i hosts \
 		--extra-vars "my_instance_ip=$$my_instance_ip" \
 		main.yml
+
+deploy:
+	my_instance_ip=$$(cd provisioning/terraform && terraform output -no-color public_ip) \
+	&& cd provisioning/ansible \
+	&& ansible-playbook \
+		-i hosts \
+		--extra-vars "my_instance_ip=$$my_instance_ip" \
+		deploy.yml
