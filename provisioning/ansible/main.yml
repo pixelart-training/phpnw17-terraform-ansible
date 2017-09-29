@@ -1,0 +1,32 @@
+---
+- hosts: my_instance
+  remote_user: ubuntu
+  become: true
+  gather_facts: false
+
+  vars_prompt:
+    - name: my_instance_ip
+      prompt: "Enter IP address of your AWS instance"
+
+  tasks:
+    - name: Set IP as fact
+      set_fact:
+        jenkins_ip: "{{ my_instance_ip }}"
+    - name: Install Python
+      raw: "apt-get update && apt-get -y -q install python"
+
+- hosts: my_instance
+  remote_user: ubuntu
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Add repository for PHP 7.1
+      apt_repository:
+        repo: ppa:ondrej/php
+        update_cache: yes
+
+    - name: Install PHP Packages
+      apt: name={{ item }} state=latest
+      with_items: '{{ php_packages }}'
+      when: php_packages is defined

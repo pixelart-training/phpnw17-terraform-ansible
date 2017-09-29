@@ -1,0 +1,1 @@
+my_instance ansible_host="{{ my_instance_ip }}"
