@@ -53,3 +53,11 @@ resource "aws_security_group" "my_security_group" {
     Name = "FOO"
   }
 }
+
+resource "dnsimple_record" "bolt" {
+  domain = "${var.base_domain}"
+  name   = "bolt-foo"
+  value  = "${aws_instance.my_instance.public_ip}"
+  type   = "A"
+  ttl    = 60
+}
