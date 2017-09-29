@@ -1,0 +1,55 @@
+# PHP packages
+php_packages_state: latest
+php_packages:
+  - php7.1-common
+  - php7.1-cli
+  - php7.1-fpm
+  - php7.1-apcu
+  - php7.1-curl
+  - php7.1-gd
+  - php7.1-intl
+  - php7.1-json
+  - php7.1-mbstring
+  - php7.1-opcache
+  - php7.1-sqlite3
+  - php7.1-xml
+  - php7.1-zip
+
+php_conf_paths:
+  - /etc/php/7.1/fpm
+  - /etc/php/7.1/apache2
+  - /etc/php/7.1/cli
+
+php_extension_conf_paths:
+  - /etc/php/7.1/fpm/conf.d
+  - /etc/php/7.1/apache2/conf.d
+  - /etc/php/7.1/cli/conf.d
+
+# Common config
+php_max_execution_time: 240
+php_upload_max_filesize: 512M
+php_post_max_size: 512M
+php_max_input_vars: 1500
+php_realpath_cache_size: 256k
+php_display_errors: On
+php_output_buffering: 16384
+
+# OPCache
+php_opcache_memory_consumption: 256
+php_opcache_interned_strings_buffer: 32
+php_opcache_max_accelerated_files: 30000
+php_opcache_revalidate_freq: 1
+
+# APCu
+php_apc_shm_size: 64M
+
+# FPM
+php_webserver_daemon: nginx
+php_enable_php_fpm: true
+php_fpm_daemon: php7.1-fpm
+php_fpm_conf_path: /etc/php/7.1/fpm
+php_fpm_pool_conf_path: "{{ php_fpm_conf_path }}/pool.d/www.conf"
+php_fpm_listen: /run/php/php7.1-fpm.sock
+
+# composer
+composer_keep_updated: true

@@ -20,13 +20,8 @@
   become: true
   gather_facts: true
 
-  tasks:
-    - name: Add repository for PHP 7.1
-      apt_repository:
-        repo: ppa:ondrej/php
-        update_cache: yes
-
-    - name: Install PHP Packages
-      apt: name={{ item }} state=latest
-      with_items: '{{ php_packages }}'
-      when: php_packages is defined
+  roles:
+    - server
+    - geerlingguy.nginx
+    - geerlingguy.php
+    - geerlingguy.composer

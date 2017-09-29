@@ -1,0 +1,10 @@
+---
+- name: Install Extra Packages
+  apt: name={{ item }} state=latest
+  with_items: '{{ server_packages }}'
+  when: server_packages is defined
+
+- name: Add repository for PHP 7.1
+  apt_repository:
+    repo: ppa:ondrej/php
+    update_cache: yes

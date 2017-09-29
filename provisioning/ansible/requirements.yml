@@ -1,0 +1,6 @@
+# All the required roles from Ansible Galaxy. Run with:
+# ansible-galaxy install -r requirements.yml -p roles/
+
+- src: geerlingguy.nginx
+- src: geerlingguy.php
+- src: geerlingguy.composer

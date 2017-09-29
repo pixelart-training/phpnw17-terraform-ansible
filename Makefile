@@ -1,4 +1,6 @@
-.PHONY: tffmt tfplan tfapply tfrefresh tfoutput tfdestroy ssh setup
+.PHONY: default tffmt tfplan tfapply tfrefresh tftaint tfoutput tfdestroy ssh galaxy setup
+
+default: tfapply setup
 
 tffmt:
 	cd provisioning/terraform && terraform fmt
@@ -12,6 +14,9 @@ tfapply:
 tfrefresh:
 	cd provisioning/terraform && terraform init && terraform refresh
 
+tftaint:
+	cd provisioning/terraform && terraform init && terraform taint $(R)
+
 tfoutput:
 	cd provisioning/terraform && terraform init && terraform output
 
@@ -21,6 +26,9 @@ tfdestroy:
 ssh:
 	@my_instance_ip=$$(cd provisioning/terraform && terraform output -no-color public_ip) \
 	&& ssh ubuntu@$$my_instance_ip
+
+galaxy:
+	cd provisioning/ansible && ansible-galaxy install -r requirements.yml -p roles/
 
 setup:
 	my_instance_ip=$$(cd provisioning/terraform && terraform output -no-color public_ip) \
